@@ -1,28 +1,100 @@
-# spaingym
-Streamlit-based AI chatbot for a gym trainer in Spain. The main requirements are language selection, user authentication for trainers and clients, schedule management, data storage, notifications, and Excel export.
 
-Let's break it down step by step.
+# Streamlit-Based AI Chatbot for Gym Trainer in Spain
 
-First, the language selection. Streamlit allows dynamic content, so I'll need to use session state to store the selected language and display text accordingly. Maybe a dictionary for translations.
+## **Project Overview**
+This project is a **Streamlit-based AI chatbot** designed for a **gym trainer in Spain**. The application will allow trainers and clients to interact efficiently by managing schedules, sending notifications, and exporting data to Excel. It will also include multi-language support and user authentication.
 
-Next, user authentication. Trainers have fixed credentials, so I'll hardcode those. Clients need to create accounts, which should be stored securely. Maybe a JSON file to store usernames, passwords, and roles. For login, check if the user exists and match the password. Session state will track the logged-in user and their role.
+## **Features & Requirements**
+### **1. Language Selection**
+- Users can select their preferred language.
+- Session state will store the selected language.
+- A dictionary will handle translations for dynamic content.
 
-Data storage. Each client's data should be separate. Another JSON file, perhaps, where each client has their schedule entries. Trainers can edit or delete any client's data, while clients can only view their own. When a trainer updates a schedule, the client needs a notification. Maybe a 'notifications' field in the client's data.
+### **2. User Authentication**
+- **Trainers**: Fixed credentials (hardcoded in the prototype).
+- **Clients**: Need to register accounts.
+- **Data Storage**: JSON file for usernames, passwords, and roles.
+- **Login System**: Matches user credentials and tracks sessions.
 
-The schedule creation form. Clients should pick dates from a calendar widget, days from a dropdown, and time maybe with a time input. Streamlit has date_input and selectbox for days. Current date and time can be set as defaults but allow changes.
+### **3. Data Storage**
+- **Separate JSON file per client** to store their schedules and notifications.
+- **Trainers** can edit or delete any client's schedule.
+- **Clients** can only view their own schedule.
 
-Notifications. When a trainer updates a schedule, add a message to the client's notifications. Clients should see these upon login and respond with yes/no availability. The trainer can then see the responses.
+### **4. Schedule Management**
+- Clients select dates using a **calendar widget**.
+- Days are chosen from a **dropdown menu**.
+- Time selection via a **time input widget**.
+- Default values will be set but can be modified.
 
-Excel export. Use pandas to compile all client data into a DataFrame and export to Excel. Trainers can trigger this with a button.
+### **5. Notifications System**
+- When a trainer updates a schedule, a **notification is sent to the client**.
+- Clients can **respond with Yes/No availability**.
+- Trainers can view client responses.
 
-Different interfaces. After login, based on the user's role (trainer or client), display different UIs. Trainers see all clients and can edit, clients see their schedule and notifications.
+### **6. Excel Export**
+- **Trainers can export all client schedules to an Excel file**.
+- Uses `pandas` to format and export data.
 
-Security considerations. Storing passwords in plain text is bad. Maybe use hashing, but for simplicity in a prototype, maybe skip it but note the risk. Data files (users.json, clients_data.json) should be created if they don't exist.
+### **7. Role-Based User Interface**
+- **Trainer Dashboard**:
+  - View all clients and their schedules.
+  - Edit/Delete any client’s schedule.
+  - Send notifications and view responses.
+  - Export data to Excel.
+- **Client Dashboard**:
+  - View personal schedule and notifications.
+  - Respond to notifications (Yes/No).
 
-Testing each part: language switch, account creation, login, schedule creation, trainer edits, notifications, Excel export.
+## **Security Considerations**
+- **Passwords should be hashed** (though for prototype simplicity, it might be skipped with a warning).
+- JSON files should be handled properly to avoid corruption.
+- Concurrent file access issues should be considered (a database would be ideal but JSON is used for simplicity).
 
-Possible issues: Concurrent access to JSON files might cause errors. Using file locks or a database would be better, but for simplicity, stick with JSON and hope for low concurrency.
+## **Implementation Steps**
+### **Step 1: Language Selection**
+- Implement session state to store the selected language.
+- Create a dictionary to handle translations.
+- Display content dynamically based on language choice.
 
-Putting it all together: Start with the language selection, then login/signup. Based on role, show the appropriate interface. Use session state to manage the flow. Functions to handle user data, schedules, and notifications.
+### **Step 2: User Authentication**
+- Create a login/signup system.
+- Store users in `users.json`.
+- Implement session tracking for logged-in users.
 
-Need to make sure the code is well-structured, uses functions for repetitive tasks, and handles edge cases like missing files or incorrect logins.
+### **Step 3: Schedule Management**
+- Implement forms for clients to select dates and times.
+- Store schedules in `clients_data.json`.
+- Allow trainers to edit or delete schedules.
+
+### **Step 4: Notifications System**
+- Update a client’s notification field when a trainer modifies their schedule.
+- Allow clients to respond with availability (Yes/No).
+- Trainers can view responses.
+
+### **Step 5: Excel Export**
+- Use `pandas` to compile client data into a DataFrame.
+- Implement an export button for trainers.
+
+### **Step 6: UI Design Based on Role**
+- Use session state to determine role-based content.
+- Separate dashboards for trainers and clients.
+
+### **Step 7: Testing**
+- Test each feature separately:
+  - Language selection
+  - User authentication
+  - Schedule creation
+  - Trainer edits
+  - Notifications
+  - Excel export
+- Handle edge cases like missing files and incorrect logins.
+
+## **Potential Issues & Considerations**
+- **Concurrent file access**: JSON handling should be robust.
+- **Security**: Avoid storing plain-text passwords in production.
+- **Scalability**: If user base grows, a database might be needed instead of JSON.
+
+## **Conclusion**
+This **Streamlit-based AI chatbot** will streamline interactions between trainers and clients by offering **language support, authentication, schedule management, notifications, and data export**. The project balances **simplicity and functionality**, ensuring a user-friendly experience for both trainers and clients.
+
